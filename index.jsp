@@ -1,4 +1,6 @@
 <!DOCTYPE HTML>
+<%@ page import ="db.*" 
+%>
 <!--
 	Dimension by HTML5 UP
 	html5up.net | @ajlkn
@@ -14,7 +16,19 @@
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 	</head>
 	<body>
+		<%
+	Cookie[] cookies = request.getCookies();
+	if(cookies != null) {
+      for (int i = 0; i < cookies.length; i++) {
+          if(cookies[i].getName().equals("user")){
+				request.getSession().setAttribute("user", User.getUserFromId(cookies[i].getValue()));
+			}
+       }
+   }
 
+	User u = (User) request.getSession().getAttribute("user");
+%>
+      
 		<!-- Wrapper -->
 			<div id="wrapper">
 
@@ -25,16 +39,16 @@
 						</div>
 						<div class="content">
 							<div class="inner">
-								<h1>Zewj</h1>
+								<h1>Welcome to Zewj -  <%= u != null ? u.getUser_login() : "" %></h1>
 								<p>Your first Zewj App!</p>
 							</div>
 						</div>
 						<nav>
 							<ul>
-								<li><a href="#intro">Intro</a></li>
-								<li><a href="#work">Work</a></li>
-								<li><a href="#about">About</a></li>
-								<li><a href="#contact">Contact</a></li>
+								<li><a href="#intro">Start App</a></li>
+								<li><a href="#work">Stop App</a></li>
+								<li><a href="#about">Help</a></li>
+								<li><a href="http://143.167.9.204:8080/CoreServices/AppLoaderServlet">Back To Zewj</a></li>
 								<!--<li><a href="#elements">Elements</a></li>-->
 							</ul>
 						</nav>
